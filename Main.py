@@ -117,6 +117,19 @@ def updateInMap():
             return updateInCombat()
 
     # TODO move enemies
+    for i in range(len(control.enemies)):
+        roomBounds = control.levelMap.getRoomBounds(control.player.x, control.player.y)
+        if control.levelMap._map[control.player.y][control.player.x] == 0 and control.enemies[i].x >= roomBounds[0] and control.enemies[i].x <= roomBounds[1] and control.enemies[i].y >= roomBounds[2] and control.enemies[i].y <= roomBounds[3]:
+            if control.enemies[i].x > control.player.x:
+                control.enemies[i].move_left()
+            if control.enemies[i].x < control.player.x:
+                control.enemies[i].move_right()
+            if control.enemies[i].y > control.player.y:
+                control.enemies[i].move_up()
+            if control.enemies[i].y < control.player.y:
+                control.enemies[i].move_down()
+        else:
+            control.enemies[i].move_random()
 
     # check if enemy moved onto player
     for i in range(len(control.enemies)):
