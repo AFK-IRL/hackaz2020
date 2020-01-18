@@ -2,11 +2,11 @@ from Control import Control
 from LoadMap import Map
 import curses
 
+win = curses.initscr()
+
 control = Control("map.txt")
 
 map = Map("map.txt")
-
-win = curses.initscr()
 
 default_cursor_visibility = curses.curs_set(0)
 
@@ -53,9 +53,8 @@ gameOver = False
 def updateInMap():
     global gameOver, inCombat, currentEnemy
     row = 0
-    for line in control.levelMap.getStrings():
+    for line in control.levelMap.getRevealedStrings():
         win.addstr(row, 0, line)
-        #print(control.levelMap.getStrings()[0][control.player.y][control.player.x])
         row += 1
 
     #win.addstr(30, 0, f"({control.player.x}, {control.player.y})             ")
@@ -63,17 +62,20 @@ def updateInMap():
 
     ch = win.getkey()
 
-    if ch == "w" and control.player.y > 0 and control.levelMap._map[control.player.y-1][control.player.x] == 0:
+    if ch == "w" and control.player.y > 0 and (control.levelMap._map[control.player.y-1][control.player.x] == 0 or control.levelMap._map[control.player.y-1][control.player.x] == 2):
         control.player.move_up()
-    if ch == "a" and control.player.x > 0 and control.levelMap._map[control.player.y][control.player.x-1] == 0:
+    if ch == "a" and control.player.x > 0 and (control.levelMap._map[control.player.y][control.player.x-1] == 0 or control.levelMap._map[control.player.y][control.player.x-1] == 2):
         control.player.move_left()
-    if ch == "s" and control.player.y < actual_height and control.levelMap._map[control.player.y+1][control.player.x] == 0:
+    if ch == "s" and control.player.y < actual_height - 1 and (control.levelMap._map[control.player.y+1][control.player.x] == 0 or control.levelMap._map[control.player.y+1][control.player.x] == 2):
         control.player.move_down()
-    if ch == "d" and control.player.x < actual_width and control.levelMap._map[control.player.y][control.player.x+1] == 0:
+    if ch == "d" and control.player.x < actual_width - 1 and (control.levelMap._map[control.player.y][control.player.x+1] == 0 or control.levelMap._map[control.player.y][control.player.x+1] == 2):
         control.player.move_right()
     if ch == "q":
         gameOver = True
         return
+
+    control.levelMap.revealRoom(control.player.x, control.player.y)
+    control.levelMap.revealPath(control.player.x, control.player.y)
 
     # check if player is on enemy
     for i in range(len(control.enemies)):
