@@ -21,7 +21,7 @@ win.keypad(True)
 
 # Init window
 char_height = 35
-char_width = 100
+char_width = 90
 
 actual_height, actual_width = win.getmaxyx()
 
