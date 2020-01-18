@@ -20,3 +20,16 @@ class Inventory:
                     item.add_ammo(item.get_count())
                     return
         self._items.append(item)
+
+    # item: string name of item to remove
+    # count: integer, only used if ammo, amnt to deduct from ammo
+    def remove_item(self, item, count):
+        for i in self._items:
+            if i.get_name() == item.get_name():
+                if item.get_type() == 'ItemAmmo':
+                    if item.get_count <= 0:
+                        self._items.remove(i)
+                    else:
+                        i.remove_ammo(count)
+                else:
+                    self._items.remove(i)
