@@ -10,7 +10,7 @@ class Enemy:
         self.prob_to_move = .5
 
     def move_random(self):
-        if random.random() < prob_to_move:
+        if random.random() < self.prob_to_move:
             num = random.randint(1,4)
             if num == 1:
                 self.move_left()
@@ -20,10 +20,6 @@ class Enemy:
                 self.move_up()
             else:
                 self.move_down()
-
-        }
-        
-        return switcher.get(random.randInt(0,4))
 
     def move_left(self):
         self.x -= 1

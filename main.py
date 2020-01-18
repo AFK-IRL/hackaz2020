@@ -1,4 +1,7 @@
+from Control import Control
 import curses
+
+control = Control(None)
 
 win = curses.initscr()
 
@@ -21,7 +24,10 @@ win.resize(char_height, char_width)
 gameOver = False
 
 while not gameOver:
-    win.getch()
+    ch = win.getch()
+    
+    if ch == ord('q'):
+        gameOver = True
 
 # Terminates curses application
 curses.nocbreak()
