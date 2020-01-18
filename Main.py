@@ -1,7 +1,10 @@
 from Control import Control
+from LoadMap import Map
 import curses
 
 control = Control(None)
+
+map = Map("map.txt")
 
 win = curses.initscr()
 
@@ -25,6 +28,8 @@ win.refresh()
 gameOver = False
 
 while not gameOver:
+    win.addstr(map._map)
+
     ch = win.getkey()
 
     if ch == "q":

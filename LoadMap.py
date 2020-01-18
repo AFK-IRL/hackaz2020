@@ -9,7 +9,7 @@ class Map:
 
         lines = []
         with open(fileName, 'r') as f:
-            lines = f.readLines()
+            lines = f.readlines()
         for line in lines:
             line = line.replace('\n', '')
             line = line.replace('\r', '')
