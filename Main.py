@@ -31,7 +31,7 @@ if char_height > actual_height or char_width > actual_width:
     win.keypad(False)
     curses.curs_set(default_cursor_visibility)
     curses.endwin()
-    print(f"Window size must be {char_width}x{char_height}")
+    print(f"Window size must be at least {char_width}x{char_height}")
     print(f"Window size is currently {actual_width}x{actual_height}")
     print("Please resize window and relaunch")
     exit(1)
