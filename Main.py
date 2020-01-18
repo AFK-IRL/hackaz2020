@@ -41,7 +41,7 @@ win.refresh()
 gameOver = False
 
 while not gameOver:
-    win.addstr(map._map)
+    #win.addstr(map._map)
 
     ch = win.getkey()
 
