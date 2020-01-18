@@ -17,7 +17,7 @@ class Enemy:
         self.miss_chance = miss_chance
 
     def move_random(self):
-        if random.random() < self.prob_to_move:
+        if random.random() < self.prob_to_move and self.alive:
             num = random.randint(1,4)
             if num == 1 and self.levelMap[self.y][self.x-1] == 0:
                 self.move_left()
@@ -29,19 +29,25 @@ class Enemy:
                 self.move_down()
 
     def move_left(self):
-        self.x -= 1
+        if self.alive:
+            self.x -= 1
 
     def move_right(self):
-        self.x += 1
+        if self.alive:
+            self.x += 1
 
     def move_up(self):
-        self.y -= 1
+        if self.alive:
+            self.y -= 1
     
     def move_down(self):
-        self.y += 1
+        if self.alive:
+            self.y += 1
 
     def take_damage(self, amt):
         self.health -= amt
+        if self._health < 1:
+            self.alive = False
 
     def is_dead(self):
         return self.health < 1
