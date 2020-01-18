@@ -43,13 +43,13 @@ def astar(maze, start, end):
                 current_node = item
                 current_index = index
 
-        # Pop current off open list, add to closed list
-        open_list.pop(current_index)
-        closed_list.append(current_node)
-
         if len(open_list) == 0 and not isFirstNode:
             isReachable = False
             return []
+
+        # Pop current off open list, add to closed list
+        open_list.pop(current_index)
+        closed_list.append(current_node)
 
         # Found the goal
         if current_node == end_node:
@@ -100,7 +100,9 @@ def astar(maze, start, end):
                     continue
 
             # Add the child to the open list
-            open_list.append(child)
+            if not child in closed_list:
+                open_list.append(child)
+            
             isFirstNode = False
 
 
