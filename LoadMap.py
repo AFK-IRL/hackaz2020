@@ -6,8 +6,7 @@ class Map:
     wall_char = ' '
     path_char = '#'
 
-    def __init__(self, fileName, win):
-        self.win = win
+    def __init__(self, fileName):
         self._fileName = fileName
         self._map = []
         self._revealedMap = []
