@@ -116,7 +116,7 @@ def updateInMap():
             #win.addstr(32, 0, "combat!!")
             return updateInCombat()
 
-    # TODO move enemies
+    # move enemies
     for i in range(len(control.enemies)):
         roomBounds = control.levelMap.getRoomBounds(control.player.x, control.player.y)
         if control.levelMap._map[control.player.y][control.player.x] == 0 and control.enemies[i].x >= roomBounds[0] and control.enemies[i].x <= roomBounds[1] and control.enemies[i].y >= roomBounds[2] and control.enemies[i].y <= roomBounds[3]:
