@@ -6,8 +6,7 @@ class Map:
     wall_char = ' '
     path_char = '#'
 
-    def __init__(self, fileName, win):
-        self.win = win
+    def __init__(self, fileName):
         self._fileName = fileName
         self._map = []
         self._revealedMap = []
@@ -175,7 +174,7 @@ class Map:
         y = self.player.y
         arr[y] = arr[y][:x] + '@' + arr[y][x+1:]
         for enemy in self.enemies:
-            if self._revealedMap[enemy.y][enemy.x] == 0 and not enemy.alive:
+            if self._revealedMap[enemy.y][enemy.x] == 1 or not enemy.alive:
                 continue
             x = enemy.x
             y = enemy.y

@@ -4,9 +4,9 @@ import curses
 
 win = curses.initscr()
 
-control = Control("map.txt", win)
+control = Control("map.txt")
 
-map = Map("map.txt", win)
+map = Map("map.txt")
 
 default_cursor_visibility = curses.curs_set(0)
 
