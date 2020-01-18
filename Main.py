@@ -103,9 +103,9 @@ def updateInCombat():
     global gameOver, inCombat, currentEnemy
     for i in range(1, 31):
         win.addstr(i, 1, ' '*90)
-    win.addstr(1, 1, "combat goes here...")
-    win.addstr(2, 1, "press any key to continue (q still quits)")
-    win.addstr(32, 0, "        ")
+    win.addstr(1, 2, "combat goes here...")
+    win.addstr(2, 2, "press any key to continue (q still quits)")
+    #win.addstr(32, 0, "        ")
     ch = win.getkey()
     if ch == "q":
         gameOver = True
