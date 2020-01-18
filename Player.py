@@ -6,6 +6,7 @@ class Player:
         self.x = x
         self.y = y
         self.inventory = Inventory()
+        self._current_weapon = ''
 
     def move_left(self):
         self.x -= 1
@@ -19,7 +20,7 @@ class Player:
     def move_down(self):
         self.y += 1
         self._health = 100
-        self._current_weapon = ''
+        
 
     def take_damage(self, amount):
         self._health -= amount
@@ -35,4 +36,7 @@ class Player:
 
     def use_weapon(self):
         if self._current_weapon != None:
+            return self._current_weapon.use_weapon()
+
+        return 0
 
