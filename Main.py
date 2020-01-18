@@ -74,6 +74,7 @@ win.refresh()
 inCombat = False
 currentEnemy = None
 gameOver = False
+won = -1
 
 def updateInMap():
     global gameOver, inCombat, currentEnemy
@@ -125,7 +126,7 @@ def updateInMap():
             return updateInCombat()
 
 def updateInCombat():
-    global gameOver, inCombat, currentEnemy
+    global gameOver, inCombat, currentEnemy, won
     for i in range(1, 31):
         win.addstr(i, 1, ' '*90)
     win.addstr(1, 2, "combat goes here...")
@@ -133,13 +134,22 @@ def updateInCombat():
 
     mapWin.refresh()
     ch = win.getkey()
+
+    control.enemies[currentEnemy].alive = False
     if ch == "q":
         gameOver = True
+        return
+    if ch == "l":
+        gameOver = True
+        won = 0
         return
     inCombat = False
     currentEnemy = None
 
 while not gameOver:
+    if sum([1 if enemy.alive else 0 for enemy in control.enemies]) == 0:
+        won = 1
+        break
     #win.addstr(33, 0, f'{gameOver}')
     if inCombat:
         updateInCombat()
@@ -149,3 +159,7 @@ while not gameOver:
 
 # Terminates curses application
 resetConsole()
+if won == 1:
+    print("Congrats! You win!")
+elif won == 0:
+    print("You lose... Better luck next time.")
