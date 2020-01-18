@@ -29,8 +29,11 @@ def astar(maze, start, end):
     # Add the start node
     open_list.append(start_node)
 
+    isReachable = True
+    isFirstNode = True
+
     # Loop until you find the end
-    while len(open_list) > 0:
+    while len(open_list) > 0 and isReachable:
 
         # Get the current node
         current_node = open_list[0]
@@ -43,6 +46,10 @@ def astar(maze, start, end):
         # Pop current off open list, add to closed list
         open_list.pop(current_index)
         closed_list.append(current_node)
+
+        if len(open_list) == 0 and not isFirstNode:
+            isReachable = False
+            return []
 
         # Found the goal
         if current_node == end_node:
@@ -94,6 +101,7 @@ def astar(maze, start, end):
 
             # Add the child to the open list
             open_list.append(child)
+            isFirstNode = False
 
 
 def main():
@@ -103,11 +111,11 @@ def main():
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]]
 
     start = (0, 0)
     end = (7, 6)
