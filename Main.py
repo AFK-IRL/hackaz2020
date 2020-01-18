@@ -79,12 +79,13 @@ def updateInMap():
     global gameOver, inCombat, currentEnemy
     row = 1
     for line in control.levelMap.getRevealedStrings():
-        win.addstr(row, 1, line)
+        mapWin.addstr(row, 1, line)
         row += 1
 
     #win.addstr(30, 0, f"({control.player.x}, {control.player.y})             ")
     #win.addstr(31, 0, str([(enemy.x,enemy.y) for enemy in control.enemies]))
 
+    mapWin.refresh()
     ch = win.getkey()
 
     if ch == "w" or ch == "KEY_UP":
@@ -129,7 +130,8 @@ def updateInCombat():
         win.addstr(i, 1, ' '*90)
     win.addstr(1, 2, "combat goes here...")
     win.addstr(2, 2, "press any key to continue (q still quits)")
-    #win.addstr(32, 0, "        ")
+
+    mapWin.refresh()
     ch = win.getkey()
     if ch == "q":
         gameOver = True
