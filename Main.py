@@ -110,7 +110,7 @@ def updateInMap():
 
     # check if player is on enemy
     for i in range(len(control.enemies)):
-        if control.player.x == control.enemies[i].x and control.player.y == control.enemies[i].y:
+        if control.player.x == control.enemies[i].x and control.player.y == control.enemies[i].y and control.enemies[i].alive:
             inCombat = True
             currentEnemy = i
             #win.addstr(32, 0, "combat!!")
@@ -133,7 +133,7 @@ def updateInMap():
 
     # check if enemy moved onto player
     for i in range(len(control.enemies)):
-        if control.player.x == control.enemies[i].x and control.player.y == control.enemies[i].y:
+        if control.player.x == control.enemies[i].x and control.player.y == control.enemies[i].y and control.enemies[i].alive:
             inCombat = True
             currentEnemy = i
             return updateInCombat()
