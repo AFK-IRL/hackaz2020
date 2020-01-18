@@ -8,6 +8,7 @@ class Enemy:
         self.x_bound = 0
         self.y_bound = 0
         self.prob_to_move = .5
+        self.alive = True
 
     def move_random(self):
         if random.random() < self.prob_to_move:
