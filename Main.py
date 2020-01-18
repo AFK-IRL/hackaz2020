@@ -62,14 +62,18 @@ def updateInMap():
 
     ch = win.getkey()
 
-    if ch == "w" and control.player.y > 0 and (control.levelMap._map[control.player.y-1][control.player.x] == 0 or control.levelMap._map[control.player.y-1][control.player.x] == 2):
-        control.player.move_up()
-    if ch == "a" and control.player.x > 0 and (control.levelMap._map[control.player.y][control.player.x-1] == 0 or control.levelMap._map[control.player.y][control.player.x-1] == 2):
-        control.player.move_left()
-    if ch == "s" and control.player.y < actual_height - 1 and (control.levelMap._map[control.player.y+1][control.player.x] == 0 or control.levelMap._map[control.player.y+1][control.player.x] == 2):
-        control.player.move_down()
-    if ch == "d" and control.player.x < actual_width - 1 and (control.levelMap._map[control.player.y][control.player.x+1] == 0 or control.levelMap._map[control.player.y][control.player.x+1] == 2):
-        control.player.move_right()
+    if ch == "w" or ch == "KEY_UP":
+        if control.player.y > 0 and (control.levelMap._map[control.player.y-1][control.player.x] == 0 or control.levelMap._map[control.player.y-1][control.player.x] == 2):
+            control.player.move_up()
+    if ch == "a" or ch == "KEY_LEFT":
+        if control.player.x > 0 and (control.levelMap._map[control.player.y][control.player.x-1] == 0 or control.levelMap._map[control.player.y][control.player.x-1] == 2):
+            control.player.move_left()
+    if ch == "s" or ch == "KEY_DOWN":
+        if control.player.y < actual_height - 1 and (control.levelMap._map[control.player.y+1][control.player.x] == 0 or control.levelMap._map[control.player.y+1][control.player.x] == 2):
+            control.player.move_down()
+    if ch == "d" or ch == "KEY_RIGHT":
+        if control.player.x < actual_width - 1 and (control.levelMap._map[control.player.y][control.player.x+1] == 0 or control.levelMap._map[control.player.y][control.player.x+1] == 2):
+            control.player.move_right()
     if ch == "q":
         gameOver = True
         return
