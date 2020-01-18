@@ -1,8 +1,10 @@
 from Control import Control
 from LoadMap import Map
-import curses
+import curses, curses.panel
 
 win = curses.initscr()
+mapWin = win.subwin(32, 92, 0, 0)
+mapWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 
 control = Control("map.txt")
 
@@ -26,9 +28,10 @@ def resetConsole():
     win.keypad(False)
     curses.curs_set(default_cursor_visibility)
     curses.endwin()
+    bottomPanel = curses.panel.new_panel(win)
 
-char_height = 35
-char_width = 90
+char_height = 37
+char_width = 92
 
 actual_height, actual_width = win.getmaxyx()
 
@@ -48,13 +51,11 @@ inCombat = False
 currentEnemy = None
 gameOver = False
 
-
-
 def updateInMap():
     global gameOver, inCombat, currentEnemy
-    row = 0
+    row = 1
     for line in control.levelMap.getRevealedStrings():
-        win.addstr(row, 0, line)
+        win.addstr(row, 1, line)
         row += 1
 
     #win.addstr(30, 0, f"({control.player.x}, {control.player.y})             ")
@@ -96,8 +97,8 @@ def updateInMap():
 
 def updateInCombat():
     global gameOver, inCombat, currentEnemy
-    for i in range(30):
-        win.addstr(i, 0, ' '*90)
+    for i in range(1, 31):
+        win.addstr(i, 1, ' '*90)
     win.addstr(1, 1, "combat goes here...")
     win.addstr(2, 1, "press any key to continue (q still quits)")
     win.addstr(32, 0, "        ")
