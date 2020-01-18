@@ -5,6 +5,10 @@ import curses, curses.panel
 win = curses.initscr()
 mapWin = win.subwin(32, 92, 0, 0)
 mapWin.border('|', '|', '-', '-', '+', '+', '+', '+')
+statWin = win.subwin(6, 77, 31, 0)
+statWin.border('|', '|', '-', '-', '+', '+', '+', '+')
+helpWin = win.subwin(6, 16, 31, 76)
+helpWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 
 control = Control("map.txt")
 
@@ -20,6 +24,26 @@ curses.cbreak()
 
 # Enable listening from the keypad (Arrow keys, Home, Insert, etc.)
 win.keypad(True)
+
+# Init Help Panel
+helpWin.addstr(1, 2, "WASD/arrows:")
+helpWin.addstr(2, 2, "for movement")
+helpWin.addstr(4, 2, "q to quit")
+helpWin.refresh()
+
+# Init Stats Panel
+#statWin.addstr(1, 2, f"Health Points: {control.player._health}")
+#statWin.addstr(2, 2, f"Total Ammo: {control.player.ammo}")
+#statWin.refresh()
+
+def updateStats():
+    statWin.erase()
+    statWin.border('|', '|', '-', '-', '+', '+', '+', '+')
+    statWin.addstr(1, 2, f"Health Points: {control.player._health}")
+    statWin.addstr(2, 2, f"Total Ammo: {control.player.ammo}")
+    statWin.refresh()
+
+updateStats()
 
 # Init window
 def resetConsole():

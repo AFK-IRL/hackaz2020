@@ -5,8 +5,10 @@ class Player:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.ammo = 7
         self.inventory = Inventory()
         self._current_weapon = ''
+        self._health = 20
 
     def move_left(self):
         self.x -= 1
@@ -19,8 +21,6 @@ class Player:
 
     def move_down(self):
         self.y += 1
-        self._health = 100
-        
 
     def take_damage(self, amount):
         self._health -= amount
