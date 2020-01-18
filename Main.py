@@ -2,11 +2,11 @@ from Control import Control
 from LoadMap import Map
 import curses
 
-control = Control("map.txt")
-
-map = Map("map.txt")
-
 win = curses.initscr()
+
+control = Control("map.txt", win)
+
+map = Map("map.txt", win)
 
 default_cursor_visibility = curses.curs_set(0)
 
@@ -46,23 +46,27 @@ gameOver = False
 while not gameOver:
     #win.addstr(map._map)
     row = 0
-    for line in control.levelMap.getStrings():
+    for line in control.levelMap.getRevealedStrings():
         win.addstr(row, 0, line)
-        #print(control.levelMap.getStrings()[0][control.player.y][control.player.x])
         row += 1
 
     ch = win.getkey()
 
-    if ch == "w" and control.player.y > 0 and control.levelMap._map[control.player.y-1][control.player.x] == 0:
+    if ch == "w" and control.player.y > 0 and (control.levelMap._map[control.player.y-1][control.player.x] == 0 or control.levelMap._map[control.player.y-1][control.player.x] == 2):
         control.player.move_up()
-    if ch == "a" and control.player.x > 0 and control.levelMap._map[control.player.y][control.player.x-1] == 0:
+    if ch == "a" and control.player.x > 0 and (control.levelMap._map[control.player.y][control.player.x-1] == 0 or control.levelMap._map[control.player.y][control.player.x-1] == 2):
         control.player.move_left()
-    if ch == "s" and control.player.y < actual_height and control.levelMap._map[control.player.y+1][control.player.x] == 0:
+    if ch == "s" and control.player.y < actual_height - 1 and (control.levelMap._map[control.player.y+1][control.player.x] == 0 or control.levelMap._map[control.player.y+1][control.player.x] == 2):
         control.player.move_down()
-    if ch == "d" and control.player.x < actual_width and control.levelMap._map[control.player.y][control.player.x+1] == 0:
+    if ch == "d" and control.player.x < actual_width - 1 and (control.levelMap._map[control.player.y][control.player.x+1] == 0 or control.levelMap._map[control.player.y][control.player.x+1] == 2):
         control.player.move_right()
     if ch == "q":
         gameOver = True
+
+    control.levelMap.revealRoom(control.player.x, control.player.y)
+    control.levelMap.revealPath(control.player.x, control.player.y)
+
+    win.addstr(str(control.levelMap._revealedMap[control.player.y][control.player.y]))
 
     win.refresh()
 
