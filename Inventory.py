@@ -19,7 +19,8 @@ class Inventory:
                 if new_item.get_name() == item.get_name():
                     item.add_ammo(item.get_count())
                     return
-        self._items.append(item)
+
+        self._items.append(new_item)
 
     # item: string name of item to remove
     # count: integer, only used if ammo, amnt to deduct from ammo
