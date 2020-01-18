@@ -48,12 +48,23 @@ while not gameOver:
     row = 0
     for line in control.levelMap.getStrings():
         win.addstr(row, 0, line)
+        #print(control.levelMap.getStrings()[0][control.player.y][control.player.x])
         row += 1
 
     ch = win.getkey()
 
+    if ch == "w" and control.player.y > 0 and control.levelMap._map[control.player.y-1][control.player.x] == 0:
+        control.player.move_up()
+    if ch == "a" and control.player.x > 0 and control.levelMap._map[control.player.y][control.player.x-1] == 0:
+        control.player.move_left()
+    if ch == "s" and control.player.y < actual_height and control.levelMap._map[control.player.y+1][control.player.x] == 0:
+        control.player.move_down()
+    if ch == "d" and control.player.x < actual_width and control.levelMap._map[control.player.y][control.player.x+1] == 0:
+        control.player.move_right()
     if ch == "q":
         gameOver = True
+
+    win.refresh()
 
 # Terminates curses application
 curses.echo()
