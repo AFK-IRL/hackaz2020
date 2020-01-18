@@ -29,10 +29,10 @@ class Map:
                 elif arr[i] == '=':
                     arr[i] = 2
                 else:
-                    if arr[i] == '@':
-                        self.player = Player(i, row)
                     if arr[i] == 'x':
                         self.enemies += [Enemy(i, row)]
+                    if arr[i] == '@':
+                        self.player = Player(i, row)
                     arr[i] = 0
             self._map += [arr]
             self._revealedMap += [revArr]
@@ -93,15 +93,15 @@ class Map:
                     arr[i] += Map.wall_char
                 elif self._map[i][j] == 2:
                     arr[i] += Map.path_char
-        x = self.player.x
-        y = self.player.y
-        arr[y] = arr[y][:x] + '@' + arr[y][x+1:]
         for enemy in self.enemies:
             if not enemy.alive:
                 continue
             x = enemy.x
             y = enemy.y
             arr[y] = arr[y][:x] + 'x' + arr[y][x+1:]
+        x = self.player.x
+        y = self.player.y
+        arr[y] = arr[y][:x] + '@' + arr[y][x+1:]
         return tuple(arr)
 
     def revealPath(self, x, y):
@@ -170,13 +170,13 @@ class Map:
                     arr[i] += Map.wall_char
                 elif self._revealedMap[i][j] == 2:
                     arr[i] += Map.path_char
-        x = self.player.x
-        y = self.player.y
-        arr[y] = arr[y][:x] + '@' + arr[y][x+1:]
         for enemy in self.enemies:
             if self._revealedMap[enemy.y][enemy.x] == 1 or not enemy.alive:
                 continue
             x = enemy.x
             y = enemy.y
             arr[y] = arr[y][:x] + 'x' + arr[y][x+1:]
+        x = self.player.x
+        y = self.player.y
+        arr[y] = arr[y][:x] + '@' + arr[y][x+1:]
         return tuple(arr)
