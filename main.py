@@ -24,9 +24,9 @@ win.resize(char_height, char_width)
 gameOver = False
 
 while not gameOver:
-    ch = win.getch()
-    
-    if ch == ord('q'):
+    ch = win.getkey()
+
+    if ch == "q":
         gameOver = True
 
 # Terminates curses application
