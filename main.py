@@ -19,7 +19,8 @@ char_height = 40
 char_width = 160
 begin_y = 0
 begin_x = 0
-win.resize(char_height, char_width)
+#curses.resizeterm(char_height, char_width)
+win.refresh()
 
 gameOver = False
 
@@ -30,6 +31,7 @@ while not gameOver:
         gameOver = True
 
 # Terminates curses application
+curses.echo()
 curses.nocbreak()
 win.keypad(False)
-curses.echo()
+curses.endwin()
