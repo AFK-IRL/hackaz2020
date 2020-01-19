@@ -12,11 +12,5 @@ class ItemAmmo:
     def get_count(self):
         return self._count
 
-    def add_ammo(self, count):
-        self._count += count
-
-    def remove_ammo(self, count):
-        self._count -= count
-
     def get_damage(self):
         return self._damage

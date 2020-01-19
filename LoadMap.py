@@ -1,5 +1,6 @@
 from Player import Player
 from Enemy import Enemy
+from HealthPack import HealthPack
 
 class Map:
     room_char = '='
@@ -12,6 +13,7 @@ class Map:
         self._revealedMap = []
         self.player = None
         self.enemies = []
+        self.healthPacks = []
 
         lines = []
         with open(fileName, 'r') as f:
@@ -33,6 +35,8 @@ class Map:
                         self.enemies += [Enemy(i, row, self)]
                     if arr[i] == '@':
                         self.player = Player(i, row)
+                    if arr[i] == '+':
+                        self.healthPacks += [HealthPack(i, row)]
                     arr[i] = 0
             self._map += [arr]
             self._revealedMap += [revArr]
@@ -176,6 +180,12 @@ class Map:
             x = enemy.x
             y = enemy.y
             arr[y] = arr[y][:x] + 'x' + arr[y][x+1:]
+        for healthPack in self.healthPacks:
+            if self._revealedMap[healthPack.y][healthPack.x] == 1 or healthPack.hasBeenClaimed:
+                continue
+            x = healthPack.x
+            y = healthPack.y
+            arr[y] = arr[y][:x] + '+' + arr[y][x+1:]
         x = self.player.x
         y = self.player.y
         arr[y] = arr[y][:x] + '@' + arr[y][x+1:]

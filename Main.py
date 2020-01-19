@@ -115,6 +115,12 @@ def updateInMap():
     control.levelMap.revealRoom(control.player.x, control.player.y)
     control.levelMap.revealPath(control.player.x, control.player.y)
 
+    for i in range(len(control.levelMap.healthPacks)):
+        if control.player.x == control.levelMap.healthPacks[i].x and control.player.y == control.levelMap.healthPacks[i].y and not control.levelMap.healthPacks[i].hasBeenClaimed:
+            control.player.healthPacks += 1
+            control.levelMap.healthPacks[i].hasBeenClaimed = True
+            updateStats()
+
     # check if player is on enemy
     #for i in range(len(control.enemies)):
     #    if control.player.x == control.enemies[i].x and control.player.y == control.enemies[i].y and control.enemies[i].alive:

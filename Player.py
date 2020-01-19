@@ -6,7 +6,7 @@ class Player:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.ammo = 7
+        self.ammo = 10
         self.healthPacks = 3
         self.inventory = Inventory()
         self._current_weapon = None

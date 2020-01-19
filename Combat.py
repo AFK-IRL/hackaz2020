@@ -8,12 +8,12 @@ class Combat:
         self._statWin = statWin
         self._player = player
         self._enemy = enemy
-        self._word_dic = { 0: ['hello', 'could', 'weight'], 1: ['frustrating', 'complicated', 'ruminated'], 2: ['equanimity', 'blandishment', 'circumlocution']}
+        self._word_dic = { 0: ['fire', 'shoot', 'stab', 'bash', 'jab', 'smash'], 1: ['frustrating', 'complicated', 'ruminated'], 2: ['equanimity', 'blandishment', 'circumlocution']}
         self._cur_word = ''
         self._cur_word_list = []
 
     def setup(self):
-        choice = random.randint(0,2)
+        choice = random.randint(0,5)
 
         self._cur_word = self._word_dic[self._enemy.difficulty][choice]
         self._cur_word_list = list(self._cur_word)
@@ -68,7 +68,6 @@ class Combat:
                 textToType.erase()
                 textToType.border('|', '|', '-', '-', '+', '+', '+', '+')
 
-
                 if ch == '`':
                     return 2
                 elif ch == '.' and self._player.healthPacks > 0:
@@ -79,18 +78,19 @@ class Combat:
                     self._statWin.addstr(2, 2, f"Total Ammo: {self._player.ammo}")
                     self._statWin.addstr(3, 2, "Health Packs: " + str(self._player.healthPacks) + " (Press . to heal)")
                     self._statWin.refresh()
-
                 elif ch != self._cur_word_list[0]:
                     spelling = False
                 else:
                     currentSpelledWord += ch
-                    textToType.addstr(2, 2, "Spell '" + self.get_cur_word() + "'" + " | " + currentSpelledWord) 
-                    enemyHealth.addstr(2, 2, "[" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
-                    enemyHealth.refresh()
-                    textToType.refresh()
                     self._cur_word_list.pop(0)
 
+                textToType.addstr(2, 2, "Spell '" + self.get_cur_word() + "'" + " | " + currentSpelledWord) 
+                enemyHealth.addstr(2, 2, "[" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
+                enemyHealth.refresh()
+                textToType.refresh()
+
             damage = 0
+            self._player.ammo -= 1
             if spelling:
                 damage = self._player.use_weapon()
                 self._win.erase()
@@ -108,6 +108,7 @@ class Combat:
             self._enemy.take_damage(damage)
 
             if self._enemy.is_dead():
+                self._player.ammo += 6
                 return 0
 
             self._player.take_damage(self._enemy.attack())

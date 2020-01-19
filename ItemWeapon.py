@@ -7,17 +7,13 @@ class ItemWeapon:
         self._type = 'ItemWeapon'
         self._damage = damage
         self._ammo_type = ammo_type
-        self._ammo_count = 20
         self._miss_chance = miss_chance
         self._melee = melee
         self._name = name
 
     def use_weapon(self):
-        if not self._melee and self._ammo_count < 1:
-            return 0
-
         if not self._melee:
-            self._ammo_count -= 1
+            return 0
             
         chance = random.randint(1,100)
         if chance > self._miss_chance:
