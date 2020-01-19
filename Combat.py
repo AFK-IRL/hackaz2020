@@ -54,7 +54,7 @@ class Combat:
             spelling = True
             currentSpelledWord = ""
             textToType.addstr(2, 2, "Spell '" + self.get_cur_word() + "'" + " | " + currentSpelledWord) 
-            enemyHealth.addstr(2, 2, "[" + ('#' * self._enemy.health) + (' ' * (self._enemy.maxHealth-self._enemy.health)) + "]")
+            enemyHealth.addstr(2, 2, "Angry Robot HP: [" + ('#' * self._enemy.health) + (' ' * (self._enemy.maxHealth-self._enemy.health)) + "]")
             enemyHealth.refresh()
             textToType.refresh()
             while len(self._cur_word_list) > 0 and spelling:
@@ -101,7 +101,7 @@ class Combat:
                     self._cur_word_list.pop(0)
 
                 textToType.addstr(2, 2, "Spell '" + self.get_cur_word() + "'" + " | " + currentSpelledWord) 
-                enemyHealth.addstr(2, 2, "[" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
+                enemyHealth.addstr(2, 2, "Angry Robot HP: [" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
                 enemyHealth.refresh()
                 textToType.refresh()
 
