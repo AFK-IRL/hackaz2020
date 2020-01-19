@@ -7,6 +7,7 @@ class Player:
         self.x = x
         self.y = y
         self.ammo = 7
+        self.healthPacks = 3
         self.inventory = Inventory()
         self._current_weapon = None
         self._health = 20

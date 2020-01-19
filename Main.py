@@ -166,12 +166,12 @@ def updateInCombat():
 
     mapWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 
-    if fightOutcome == 2 or fightOutcome == 0:
+    if fightOutcome == 2 or fightOutcome == 1:
         gameOver = True
         inCombat = False
         won = 0
         return
-    elif fightOutcome == 1:
+    elif fightOutcome == 0:
         control.enemies[currentEnemy].alive = False
         inCombat = False
         currentEnemy = None
