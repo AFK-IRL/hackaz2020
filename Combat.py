@@ -21,6 +21,7 @@ class Combat:
     # returns 0 if enemy died, returns 1 if player died, returns 2 if quit game
     def fight(self):
         self._win.erase()
+        self._win.border('|', '|', '-', '-', '+', '+', '+', '+')
         lines = []
         with open("robot.txt", 'r') as f:
             lines = f.readlines()
@@ -49,6 +50,18 @@ class Combat:
             textToType.refresh()
             while len(self._cur_word_list) > 0 and spelling:
                 ch = self._win.getkey()
+
+                self._win.erase()
+                self._win.border('|', '|', '-', '-', '+', '+', '+', '+')
+                lines = []
+                with open("robot.txt", 'r') as f:
+                    lines = f.readlines()
+                row = 1
+                for line in lines:
+                    line = line.replace('\n', '')
+                    line = line.replace('\r', '')
+                    self._win.addstr(row, 55, line)
+                    row += 1
 
                 enemyHealth.erase()
                 enemyHealth.border('|', '|', '-', '-', '+', '+', '+', '+')
@@ -80,7 +93,18 @@ class Combat:
             damage = 0
             if spelling:
                 damage = self._player.use_weapon()
-
+                self._win.erase()
+                self._win.border('|', '|', '-', '-', '+', '+', '+', '+')
+                lines = []
+                with open("robot2.txt", 'r') as f:
+                    lines = f.readlines()
+                row = 2
+                for line in lines:
+                    line = line.replace('\n', '')
+                    line = line.replace('\r', '')
+                    self._win.addstr(row, 55, line)
+                    row += 1
+                self._win.refresh()
             self._enemy.take_damage(damage)
 
             if self._enemy.is_dead():
