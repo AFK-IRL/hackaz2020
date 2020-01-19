@@ -40,6 +40,12 @@ class Combat:
             while len(self._cur_word_list) > 0 and spelling:
                 ch = self._win.getkey()
 
+                enemyHealth.erase()
+                enemyHealth.border('|', '|', '-', '-', '+', '+', '+', '+')
+                textToType.erase()
+                textToType.border('|', '|', '-', '-', '+', '+', '+', '+')
+
+
                 if ch == '`':
                     return 2
                 if ch != self._cur_word_list[0]:
@@ -47,7 +53,7 @@ class Combat:
 
                 currentSpelledWord += ch
                 textToType.addstr(2, 2, self.get_cur_word() + " | " + currentSpelledWord) 
-                enemyHealth.addstr("[" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
+                enemyHealth.addstr(2, 2, "[" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
                 enemyHealth.refresh()
                 textToType.refresh()
                 self._cur_word_list.pop(0)
