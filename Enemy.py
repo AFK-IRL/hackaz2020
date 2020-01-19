@@ -3,7 +3,7 @@ import random
 class Enemy:
 
     # difficulty is integer 0-2 (inclusive)
-    def __init__(self, x, y, levelMap, difficulty=0, health=10, damage=2, miss_chance=20):
+    def __init__(self, x, y, levelMap, difficulty=0, health=10, damage=2, miss_chance=10):
         self.x = x
         self.y = y
         self.x_bound = 0
@@ -13,6 +13,7 @@ class Enemy:
         self.alive = True
         self.difficulty = difficulty
         self.health = health
+        self.maxHealth = health
         self.damage = damage
         self.miss_chance = miss_chance
 
@@ -58,7 +59,7 @@ class Enemy:
             self.alive = False
 
     def is_dead(self):
-        return self.health < 1
+        return self.health <= 0
 
     def attack(self):
         chance = random.randint(1, 100)

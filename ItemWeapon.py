@@ -23,5 +23,8 @@ class ItemWeapon:
                return self._damage
         return 0
 
+    def get_type(self):
+        return self._type
+
     def get_ammo_type(self):
         return self._ammo_type

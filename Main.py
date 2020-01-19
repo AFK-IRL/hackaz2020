@@ -2,6 +2,8 @@ from Control import Control
 from LoadMap import Map
 from Combat import Combat
 import curses, curses.panel
+from Inventory import Inventory
+from ItemWeapon import ItemWeapon
 
 win = curses.initscr()
 mapWin = win.subwin(32, 92, 0, 0)
@@ -12,6 +14,7 @@ helpWin = win.subwin(6, 16, 31, 76)
 helpWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 
 control = Control("map.txt")
+control.player.inventory.add_item(ItemWeapon(5, "Plasma Bolts", 0, 0))
 
 default_cursor_visibility = curses.curs_set(0)
 
@@ -27,7 +30,7 @@ win.keypad(True)
 # Init Help Panel
 helpWin.addstr(1, 2, "WASD/arrows:")
 helpWin.addstr(2, 2, "for movement")
-helpWin.addstr(4, 2, "q to quit")
+helpWin.addstr(4, 2, "` to quit")
 helpWin.refresh()
 
 # Init Stats Panel
@@ -38,7 +41,7 @@ helpWin.refresh()
 def updateStats():
     statWin.erase()
     statWin.border('|', '|', '-', '-', '+', '+', '+', '+')
-    statWin.addstr(1, 2, f"Health Points: {control.player._health}")
+    statWin.addstr(1, 2, f"HP: {control.player._health} [" + '#' * control.player._health + ' ' * (control.player._maxHealth-control.player._health) + ']')
     statWin.addstr(2, 2, f"Total Ammo: {control.player.ammo}")
     statWin.refresh()
 
@@ -100,7 +103,7 @@ def updateInMap():
     if ch == "d" or ch == "KEY_RIGHT":
         if control.player.x < actual_width - 1 and (control.levelMap._map[control.player.y][control.player.x+1] == 0 or control.levelMap._map[control.player.y][control.player.x+1] == 2):
             control.player.move_right()
-    if ch == "q":
+    if ch == "`":
         gameOver = True
         return
 
@@ -148,29 +151,31 @@ def updateInMap():
 
 def updateInCombat():
     global gameOver, inCombat, currentEnemy, won
-    for i in range(1, 31):
-        win.addstr(i, 1, ' '*90)
+    #for i in range(1, 31):
+    #    win.addstr(i, 1, ' '*90)
 
-    combat = Combat(mapWin, control.player, control.enemies[currentEnemy])
+    combat = Combat(mapWin, statWin, control.player, control.enemies[currentEnemy])
 
-    combat.fight()
-
-    win.addstr(1, 2, "combat goes here...")
-    win.addstr(2, 2, "press any key to continue (q still quits)")
+    #win.addstr(1, 2, "combat goes here...")
+    #win.addstr(2, 2, "press any key to continue (` still quits)")
 
     mapWin.refresh()
     ch = win.getkey()
 
-    control.enemies[currentEnemy].alive = False
-    if ch == "q":
+    fightOutcome = combat.fight()
+
+    mapWin.border('|', '|', '-', '-', '+', '+', '+', '+')
+
+    if fightOutcome == 2 or fightOutcome == 0:
         gameOver = True
-        return
-    if ch == "l":
-        gameOver = True
+        inCombay = False
         won = 0
         return
-    inCombat = False
-    currentEnemy = None
+    elif fightOutcome == 1:
+        control.enemies[currentEnemy].alive = False
+        inCombat = False
+        currentEnemy = None
+        return
 
 while not gameOver:
     if sum([1 if enemy.alive else 0 for enemy in control.enemies]) == 0:

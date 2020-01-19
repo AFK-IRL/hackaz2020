@@ -7,8 +7,9 @@ class Player:
         self.y = y
         self.ammo = 7
         self.inventory = Inventory()
-        self._current_weapon = ''
+        self._current_weapon = None
         self._health = 20
+        self._maxHealth = self._health
 
     def move_left(self):
         self.x -= 1
