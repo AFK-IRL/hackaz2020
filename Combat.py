@@ -68,7 +68,7 @@ class Combat:
                 return 0
 
             self._player.take_damage(self._enemy.attack())
-            self._statWin.addstr(1, 2, f"HP: {self._player._health} [" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
+            self._statWin.addstr(1, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
             self._statWin.addstr(2, 2, f"Total Ammo: {self._player.ammo}")
 
             self._statWin.refresh()

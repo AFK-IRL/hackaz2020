@@ -41,7 +41,7 @@ helpWin.refresh()
 def updateStats():
     statWin.erase()
     statWin.border('|', '|', '-', '-', '+', '+', '+', '+')
-    statWin.addstr(1, 2, f"HP: {control.player._health} [" + '#' * control.player._health + ' ' * (control.player._maxHealth-control.player._health) + ']')
+    statWin.addstr(1, 2, "HP: " + str(control.player._health).ljust(2) + "[" + ('#' * control.player._health) + (' ' * (control.player._maxHealth-control.player._health)) + ']')
     statWin.addstr(2, 2, f"Total Ammo: {control.player.ammo}")
     statWin.refresh()
 
@@ -111,12 +111,12 @@ def updateInMap():
     control.levelMap.revealPath(control.player.x, control.player.y)
 
     # check if player is on enemy
-    for i in range(len(control.enemies)):
-        if control.player.x == control.enemies[i].x and control.player.y == control.enemies[i].y and control.enemies[i].alive:
-            inCombat = True
-            currentEnemy = i
+    #for i in range(len(control.enemies)):
+    #    if control.player.x == control.enemies[i].x and control.player.y == control.enemies[i].y and control.enemies[i].alive:
+    #        inCombat = True
+    #        currentEnemy = i
             #win.addstr(32, 0, "combat!!")
-            return updateInCombat()
+    #        return updateInCombat()
 
     # move enemies
     for i in range(len(control.enemies)):
