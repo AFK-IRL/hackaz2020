@@ -159,8 +159,8 @@ def updateInCombat():
     #win.addstr(1, 2, "combat goes here...")
     #win.addstr(2, 2, "press any key to continue (` still quits)")
 
-    mapWin.refresh()
-    ch = win.getkey()
+    #mapWin.refresh()
+    #ch = win.getkey()
 
     fightOutcome = combat.fight()
 
