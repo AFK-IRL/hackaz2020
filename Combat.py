@@ -74,8 +74,7 @@ class Combat:
                     self._player.heal(self._player._maxHealth//2)
                     self._player.healthPacks -= 1
                     #self._statWin.erase()
-                    self._statWin.addstr(1, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
-                    self._statWin.addstr(2, 2, f"Total Ammo: {self._player.ammo}")
+                    self._statWin.addstr(2, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
                     self._statWin.addstr(3, 2, "Health Packs: " + str(self._player.healthPacks) + " (Press . to heal)")
                     self._statWin.refresh()
                 elif ch != self._cur_word_list[0]:
@@ -112,8 +111,7 @@ class Combat:
                 return 0
 
             self._player.take_damage(self._enemy.attack())
-            self._statWin.addstr(1, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
-            self._statWin.addstr(2, 2, f"Total Ammo: {self._player.ammo}")
+            self._statWin.addstr(2, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
             self._statWin.addstr(3, 2, "Health Packs: " + str(self._player.healthPacks) + " (Press . to heal)")
 
             self._statWin.refresh()

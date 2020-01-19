@@ -41,8 +41,7 @@ helpWin.refresh()
 def updateStats():
     statWin.erase()
     statWin.border('|', '|', '-', '-', '+', '+', '+', '+')
-    statWin.addstr(1, 2, "HP: " + str(control.player._health).ljust(2) + "[" + ('#' * control.player._health) + (' ' * (control.player._maxHealth-control.player._health)) + ']')
-    statWin.addstr(2, 2, f"Total Ammo: {control.player.ammo}")
+    statWin.addstr(2, 2, "HP: " + str(control.player._health).ljust(2) + "[" + ('#' * control.player._health) + (' ' * (control.player._maxHealth-control.player._health)) + ']')
     statWin.addstr(3, 2, "Health Packs: " + str(control.player.healthPacks) + " (Press . to heal)")
     statWin.refresh()
 
