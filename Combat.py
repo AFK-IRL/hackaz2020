@@ -1,4 +1,5 @@
 import random
+import curses
 
 class Combat:
 
@@ -12,10 +13,10 @@ class Combat:
 
     
     def setup(self):
-        choice = random.randint(0,3)
+        choice = random.randint(0,2)
 
         self._cur_word = self._word_dic[self._enemy.difficulty][choice]
-        self._cur_word_list = self._cur_word.split('')
+        self._cur_word_list = list(self._cur_word)
 
     # returns 0 if enemy died, returns 1 if player died
     def fight(self):

@@ -30,7 +30,7 @@ class Map:
                     arr[i] = 2
                 else:
                     if arr[i] == 'x':
-                        self.enemies += [Enemy(i, row, self._map)]
+                        self.enemies += [Enemy(i, row, self)]
                     if arr[i] == '@':
                         self.player = Player(i, row)
                     arr[i] = 0

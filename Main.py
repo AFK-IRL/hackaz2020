@@ -1,5 +1,6 @@
 from Control import Control
 from LoadMap import Map
+from Combat import Combat
 import curses, curses.panel
 
 win = curses.initscr()
@@ -11,8 +12,6 @@ helpWin = win.subwin(6, 16, 31, 76)
 helpWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 
 control = Control("map.txt")
-
-map = Map("map.txt")
 
 default_cursor_visibility = curses.curs_set(0)
 
@@ -118,15 +117,24 @@ def updateInMap():
 
     # move enemies
     for i in range(len(control.enemies)):
+        enemyLocationsInRoom = []
         roomBounds = control.levelMap.getRoomBounds(control.player.x, control.player.y)
+        for j in range(len(control.enemies)):
+                if i != j:
+                    fellowEnemyRoomBounds = control.levelMap.getRoomBounds(control.enemies[j].x, control.enemies[j].y)
+                    if roomBounds == fellowEnemyRoomBounds:
+                        enemyLocationsInRoom += (control.enemies[j].x, control.enemies[j].y)
+
         if control.levelMap._map[control.player.y][control.player.x] == 0 and control.enemies[i].x >= roomBounds[0] and control.enemies[i].x <= roomBounds[1] and control.enemies[i].y >= roomBounds[2] and control.enemies[i].y <= roomBounds[3]:
-            if control.enemies[i].x > control.player.x:
+            enemyLocationsInRoom = []
+
+            if control.enemies[i].x > control.player.x and not (control.enemies[i].x - 1, control.enemies[i].y) in enemyLocationsInRoom:
                 control.enemies[i].move_left()
-            if control.enemies[i].x < control.player.x:
+            if control.enemies[i].x < control.player.x and not (control.enemies[i].x + 1, control.enemies[i].y) in enemyLocationsInRoom:
                 control.enemies[i].move_right()
-            if control.enemies[i].y > control.player.y:
+            if control.enemies[i].y > control.player.y and not (control.enemies[i].x, control.enemies[i].y - 1) in enemyLocationsInRoom:
                 control.enemies[i].move_up()
-            if control.enemies[i].y < control.player.y:
+            if control.enemies[i].y < control.player.y and not (control.enemies[i].x, control.enemies[i].y + 1) in enemyLocationsInRoom:
                 control.enemies[i].move_down()
         else:
             control.enemies[i].move_random()
@@ -142,6 +150,11 @@ def updateInCombat():
     global gameOver, inCombat, currentEnemy, won
     for i in range(1, 31):
         win.addstr(i, 1, ' '*90)
+
+    combat = Combat(mapWin, control.player, control.enemies[currentEnemy])
+
+    combat.fight()
+
     win.addstr(1, 2, "combat goes here...")
     win.addstr(2, 2, "press any key to continue (q still quits)")
 
