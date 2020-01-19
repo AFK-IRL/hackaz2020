@@ -29,7 +29,16 @@ class Combat:
         for line in lines:
             line = line.replace('\n', '')
             line = line.replace('\r', '')
-            self._win.addstr(row, 55, line)
+            self._win.addstr(row, 50, line)
+            row += 1
+        lines = []
+        with open("cannon.txt", 'r') as f:
+            lines = f.readlines()
+        row = 17
+        for line in lines:
+            line = line.replace('\n', '')
+            line = line.replace('\r', '')
+            self._win.addstr(row, 7, line)
             row += 1
         enemyHealth = self._win.subwin(5, 46, 27, 46)
         textToType = self._win.subwin(5, 47, 27, 0)
@@ -60,9 +69,17 @@ class Combat:
                 for line in lines:
                     line = line.replace('\n', '')
                     line = line.replace('\r', '')
-                    self._win.addstr(row, 55, line)
+                    self._win.addstr(row, 50, line)
                     row += 1
-
+                lines = []
+                with open("cannon.txt", 'r') as f:
+                    lines = f.readlines()
+                row = 17
+                for line in lines:
+                    line = line.replace('\n', '')
+                    line = line.replace('\r', '')
+                    self._win.addstr(row, 7, line)
+                    row += 1
                 enemyHealth.erase()
                 enemyHealth.border('|', '|', '-', '-', '+', '+', '+', '+')
                 textToType.erase()
@@ -101,10 +118,19 @@ class Combat:
                 for line in lines:
                     line = line.replace('\n', '')
                     line = line.replace('\r', '')
-                    self._win.addstr(row, 55, line)
+                    self._win.addstr(row, 50, line)
+                    row += 1
+                lines = []
+                with open("cannon2.txt", 'r') as f:
+                    lines = f.readlines()
+                row = 17
+                for line in lines:
+                    line = line.replace('\n', '')
+                    line = line.replace('\r', '')
+                    self._win.addstr(row, 6, line)
                     row += 1
                 self._win.refresh()
-            self._enemy.take_damage(damage)
+                self._enemy.take_damage(damage)
 
             if self._enemy.is_dead():
                 self._player.ammo += 6

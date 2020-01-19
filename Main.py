@@ -201,6 +201,9 @@ while not gameOver:
 # Terminates curses application
 resetConsole()
 if won == 1:
-    print("Congrats! You win!")
+    f = open("win.txt", 'r')
+    print(f.read())
 elif won == 0:
     print("You lose... Better luck next time.")
+else:
+    print("Yolo")
