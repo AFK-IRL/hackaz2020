@@ -3,13 +3,14 @@ import random
 class ItemWeapon:
 
     # melee is boolean
-    def __init__(self, damage, ammo_type, miss_chance, melee):
+    def __init__(self, name, damage, ammo_type, miss_chance, melee):
         self._type = 'ItemWeapon'
         self._damage = damage
         self._ammo_type = ammo_type
-        self._ammo_count = 0
+        self._ammo_count = 20
         self._miss_chance = miss_chance
         self._melee = melee
+        self._name = name
 
     def use_weapon(self):
         if not self._melee and self._ammo_count < 1:
@@ -28,3 +29,6 @@ class ItemWeapon:
 
     def get_ammo_type(self):
         return self._ammo_type
+
+    def get_name(self):
+        return self._name

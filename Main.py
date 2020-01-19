@@ -14,7 +14,7 @@ helpWin = win.subwin(6, 16, 31, 76)
 helpWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 
 control = Control("map.txt")
-control.player.inventory.add_item(ItemWeapon(5, "Plasma Bolts", 0, 0))
+control.player.inventory.add_item(ItemWeapon('plasma', 5, "Plasma Bolts", 0, 0))
 
 default_cursor_visibility = curses.curs_set(0)
 
