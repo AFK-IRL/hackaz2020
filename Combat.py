@@ -21,8 +21,18 @@ class Combat:
     # returns 0 if enemy died, returns 1 if player died, returns 2 if quit game
     def fight(self):
         self._win.erase()
+        lines = []
+        with open("robot.txt", 'r') as f:
+            lines = f.readlines()
+        row = 1
+        for line in lines:
+            line = line.replace('\n', '')
+            line = line.replace('\r', '')
+            self._win.addstr(row, 55, line)
+            row += 1
         enemyHealth = self._win.subwin(5, 46, 27, 46)
         textToType = self._win.subwin(5, 47, 27, 0)
+        enemyHealth.refresh()
 
         while True:
             enemyHealth.erase()
@@ -77,8 +87,3 @@ class Combat:
 
     def get_cur_word(self):
         return self._cur_word
-        
-
-    
-
-    

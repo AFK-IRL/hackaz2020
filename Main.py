@@ -168,7 +168,7 @@ def updateInCombat():
 
     if fightOutcome == 2 or fightOutcome == 0:
         gameOver = True
-        inCombay = False
+        inCombat = False
         won = 0
         return
     elif fightOutcome == 1:
