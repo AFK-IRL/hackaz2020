@@ -30,6 +30,7 @@ class Player:
 
     def heal(self, amount):
         self._health += amount
+        self._health = min(self._health, self._maxHealth)
 
     def is_dead(self):
         return self._health <= 0

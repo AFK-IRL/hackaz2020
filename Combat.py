@@ -43,7 +43,7 @@ class Combat:
             self.setup()
             spelling = True
             currentSpelledWord = ""
-            textToType.addstr(2, 2, self.get_cur_word() + " | " + currentSpelledWord) 
+            textToType.addstr(2, 2, "Spell '" + self.get_cur_word() + "'" + " | " + currentSpelledWord) 
             enemyHealth.addstr(2, 2, "[" + ('#' * self._enemy.health) + (' ' * (self._enemy.maxHealth-self._enemy.health)) + "]")
             enemyHealth.refresh()
             textToType.refresh()
@@ -58,15 +58,24 @@ class Combat:
 
                 if ch == '`':
                     return 2
-                if ch != self._cur_word_list[0]:
-                    spelling = False
+                elif ch == '.' and self._player.healthPacks > 0:
+                    self._player.heal(self._player._maxHealth//2)
+                    self._player.healthPacks -= 1
+                    #self._statWin.erase()
+                    self._statWin.addstr(1, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
+                    self._statWin.addstr(2, 2, f"Total Ammo: {self._player.ammo}")
+                    self._statWin.addstr(3, 2, "Health Packs: " + str(self._player.healthPacks) + " (Press . to heal)")
+                    self._statWin.refresh()
 
-                currentSpelledWord += ch
-                textToType.addstr(2, 2, self.get_cur_word() + " | " + currentSpelledWord) 
-                enemyHealth.addstr(2, 2, "[" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
-                enemyHealth.refresh()
-                textToType.refresh()
-                self._cur_word_list.pop(0)
+                elif ch != self._cur_word_list[0]:
+                    spelling = False
+                else:
+                    currentSpelledWord += ch
+                    textToType.addstr(2, 2, "Spell '" + self.get_cur_word() + "'" + " | " + currentSpelledWord) 
+                    enemyHealth.addstr(2, 2, "[" + '#' * self._enemy.health + ' ' * (self._enemy.maxHealth-self._enemy.health) + "]")
+                    enemyHealth.refresh()
+                    textToType.refresh()
+                    self._cur_word_list.pop(0)
 
             damage = 0
             if spelling:
@@ -80,7 +89,7 @@ class Combat:
             self._player.take_damage(self._enemy.attack())
             self._statWin.addstr(1, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
             self._statWin.addstr(2, 2, f"Total Ammo: {self._player.ammo}")
-            self._statWin.addstr(3, 2, "Health Packs: " + self._player.healthPacks + "[+]" * self._player.healthPack)
+            self._statWin.addstr(3, 2, "Health Packs: " + str(self._player.healthPacks) + " (Press . to heal)")
 
             self._statWin.refresh()
             if self._player.is_dead():

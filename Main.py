@@ -43,6 +43,7 @@ def updateStats():
     statWin.border('|', '|', '-', '-', '+', '+', '+', '+')
     statWin.addstr(1, 2, "HP: " + str(control.player._health).ljust(2) + "[" + ('#' * control.player._health) + (' ' * (control.player._maxHealth-control.player._health)) + ']')
     statWin.addstr(2, 2, f"Total Ammo: {control.player.ammo}")
+    statWin.addstr(3, 2, "Health Packs: " + str(control.player.healthPacks) + " (Press . to heal)")
     statWin.refresh()
 
 updateStats()
@@ -103,6 +104,10 @@ def updateInMap():
     if ch == "d" or ch == "KEY_RIGHT":
         if control.player.x < actual_width - 1 and (control.levelMap._map[control.player.y][control.player.x+1] == 0 or control.levelMap._map[control.player.y][control.player.x+1] == 2):
             control.player.move_right()
+    if ch == "." and control.player.healthPacks > 0:
+        control.player.heal(control.player._maxHealth//2)
+        control.player.healthPacks -= 1
+        updateStats()
     if ch == "`":
         gameOver = True
         return
