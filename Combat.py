@@ -80,7 +80,7 @@ class Combat:
             self._player.take_damage(self._enemy.attack())
             self._statWin.addstr(1, 2, f"HP: " + str(self._player._health).ljust(2) + "[" + '#' * self._player._health + ' ' * (self._player._maxHealth-self._player._health) + ']')
             self._statWin.addstr(2, 2, f"Total Ammo: {self._player.ammo}")
-            self._statWin.addstr(3, 2, "Health Packs: " + self._player.health)
+            self._statWin.addstr(3, 2, "Health Packs: " + self._player.healthPacks + "[+]" * self._player.healthPack)
 
             self._statWin.refresh()
             if self._player.is_dead():
