@@ -6,6 +6,33 @@ from Inventory import Inventory
 from ItemWeapon import ItemWeapon
 
 win = curses.initscr()
+# Turn off key echoing
+curses.noecho()
+
+# Initialize key listening
+curses.cbreak()
+
+# Enable listening from the keypad (Arrow keys, Home, Insert, etc.)
+win.keypad(True)
+default_cursor_visibility = curses.curs_set(0)
+def resetConsole():
+    curses.echo()
+    curses.nocbreak()
+    win.keypad(False)
+    curses.curs_set(default_cursor_visibility)
+    curses.endwin()
+    #bottomPanel = curses.panel.new_panel(win)
+char_height = 39
+char_width = 94
+
+actual_height, actual_width = win.getmaxyx()
+
+if char_height > actual_height or char_width > actual_width:
+    resetConsole()
+    print(f"Window size must be at least {char_width}x{char_height}")
+    print(f"Window size is currently {actual_width}x{actual_height}")
+    print("Please resize window and relaunch")
+    exit(1)
 mapWin = win.subwin(32, 92, 0, 0)
 mapWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 statWin = win.subwin(6, 77, 31, 0)
@@ -16,16 +43,7 @@ helpWin.border('|', '|', '-', '-', '+', '+', '+', '+')
 control = Control("map.txt")
 control.player.inventory.add_item(ItemWeapon('plasma', 5, "Plasma Bolts", 0, 0))
 
-default_cursor_visibility = curses.curs_set(0)
 
-# Turn off key echoing
-curses.noecho()
-
-# Initialize key listening
-curses.cbreak()
-
-# Enable listening from the keypad (Arrow keys, Home, Insert, etc.)
-win.keypad(True)
 
 # Init Help Panel
 helpWin.addstr(1, 2, "WASD/arrows:")
@@ -48,25 +66,7 @@ def updateStats():
 updateStats()
 
 # Init window
-def resetConsole():
-    curses.echo()
-    curses.nocbreak()
-    win.keypad(False)
-    curses.curs_set(default_cursor_visibility)
-    curses.endwin()
-    bottomPanel = curses.panel.new_panel(win)
 
-char_height = 37
-char_width = 92
-
-actual_height, actual_width = win.getmaxyx()
-
-if char_height > actual_height or char_width > actual_width:
-    resetConsole()
-    print(f"Window size must be at least {char_width}x{char_height}")
-    print(f"Window size is currently {actual_width}x{actual_height}")
-    print("Please resize window and relaunch")
-    exit(1)
 
 begin_y = 0
 begin_x = 0
